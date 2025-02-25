@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Celebration</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('http://1.bp.blogspot.com/-KXkBwBOYs7A/UKcGGXDpb4I/AAAAAAAASoE/KKmU9zrJ-S0/s1600/wallpaper.kitty.022..jpg') no-repeat center center/cover;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            flex-direction: column;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 300px;
+        }
+        .photo {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .hidden { display: none; }
+        .button {
+            background-color: #ff6699;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .display-feeling {
+            font-weight: bold;
+            color: #d63384;
+            font-size: 14px;
+        }
+        .error { color: red; margin-top: 5px; font-size: 12px; }
+        select { width: 100%; padding: 3px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h3>ครบรอบกี่เดือน?</h3>
+        <select id="months" onchange="validateMonth()">
+            <option value="">เลือก</option>
+            <option value="1">1 เดือน</option>
+            <option value="2">2 เดือน</option>
+            <option value="3">3 เดือน</option>
+            <option value="4">4 เดือน</option>
+            <option value="5">5 เดือน</option>
+            <option value="6">6 เดือน</option>
+            <option value="7">7 เดือน</option>
+            <option value="8">8 เดือน</option>
+            <option value="9">9 เดือน</option>
+            <option value="10">10 เดือน</option>
+            <option value="11">11 เดือน</option>
+            <option value="12">1 ปี</option>
+        </select>
+        <p class="error hidden" id="error">แฟนจำผิดนะ! 😘</p>
+        <button class="button" id="confirmBtn" onclick="showHappiness()" disabled>ยืนยัน</button>
+        
+        <div class="hidden" id="happinessOptions">
+            <p>มีความสุขมั้ย?</p>
+            <button class="button" onclick="showPhotos(true)">มี 😊</button>
+            <button class="button" onclick="showPhotos(false)">ไม่มี 😢</button>
+            <p class="error hidden" id="noHappinessError">เดะโดนตี! 😤</p>
+        </div>
+        
+        <div class="hidden" id="photoContainer">
+            <p>เลือก 1 รูป</p>
+            <img src="acaa84f0-a5a9-4d08-b3f9-84941677cfb6.jpg" alt="Photo 1" class="photo" onclick="submitFeeling(1)">
+            <img src="f828b9ff-5166-41b2-8b33-dc06e139a597.jpg" alt="Photo 2" class="photo" onclick="submitFeeling(2)">
+        </div>
+        
+        <div class="display-feeling hidden" id="displayFeeling"></div>
+    </div>
+    
+    <script>
+        function validateMonth() {
+            const correctMonth = "7";
+            let selectedMonth = document.getElementById("months").value;
+            let confirmBtn = document.getElementById("confirmBtn");
+            let errorMsg = document.getElementById("error");
+            
+            if (selectedMonth === correctMonth) {
+                errorMsg.classList.add("hidden");
+                confirmBtn.disabled = false;
+            } else {
+                errorMsg.classList.remove("hidden");
+                confirmBtn.disabled = true;
+            }
+        }
+        
+        function showHappiness() {
+            document.getElementById("happinessOptions").classList.remove("hidden");
+        }
+        
+        function showPhotos(isHappy) {
+            if (!isHappy) {
+                document.getElementById("noHappinessError").classList.remove("hidden");
+            } else {
+                document.getElementById("noHappinessError").classList.add("hidden");
+                document.getElementById("photoContainer").classList.remove("hidden");
+            }
+        }
+        
+        function submitFeeling(photoChoice) {
+            let message = photoChoice === 1 
+                ? "สุขสันต์วันครบรอบ 7 เดือนนะปะป๊า 💕 มะม๊ารักปะป๊ามาก ๆ ขอบคุณที่อยู่ข้างกันเสมอ และขอให้เรารักกันแบบนี้ตลอดไปน้า 😘"
+                : "7 เดือนแล้วนะปะป๊า 🎉 ทุกวินาทีที่มีปะป๊าอยู่คือช่วงเวลาที่มะม๊ามีความสุขที่สุด รักปะป๊าไม่เปลี่ยนแปลงน้า 💖";
+            
+            document.getElementById("displayFeeling").innerText = message;
+            document.getElementById("displayFeeling").classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
